@@ -13,7 +13,9 @@ class PersonDataModel {
     this.refereeId,
     this.firstName,
     this.lastName,
+    this.email,
     this.niDnumber,
+    this.userPhoto,
     this.niDfront,
     this.niDback,
     this.dateOfBirth,
@@ -54,7 +56,9 @@ class PersonDataModel {
   var refereeId;
   var firstName;
   var lastName;
+  var email;
   var niDnumber;
+  var userPhoto;
   var niDfront;
   var niDback;
   var dateOfBirth;
@@ -95,7 +99,9 @@ class PersonDataModel {
     refereeId: json["refereeId"] == null ? null : json["refereeId"],
     firstName: json["firstName"] == null ? null : json["firstName"],
     lastName: json["lastName"] == null ? null : json["lastName"],
+    email: json["email"] == null ? null : json["email"],
     niDnumber: json["NIDnumber"] == null ? null : json["NIDnumber"],
+    userPhoto: json["userPhoto"] == null ? null : json["userPhoto"],
     niDfront: json["NIDfront"] == null ? null : json["NIDfront"],
     niDback: json["NIDback"] == null ? null : json["NIDback"],
     dateOfBirth: json["dateOfBirth"] == null ? null : json["dateOfBirth"],
@@ -137,7 +143,9 @@ class PersonDataModel {
     "refereeId": refereeId == null ? null : refereeId,
     "firstName": firstName == null ? null : firstName,
     "lastName": lastName == null ? null : lastName,
+    "email": email == null ? null : email,
     "NIDnumber": niDnumber == null ? null : niDnumber,
+    "userPhoto": userPhoto == null ? null : userPhoto,
     "NIDfront": niDfront == null ? null : niDfront,
     "NIDback": niDback == null ? null : niDback,
     "dateOfBirth": dateOfBirth == null ? null : dateOfBirth,
@@ -174,4 +182,9 @@ class PersonDataModel {
     "nomineePhoto": nomineePhoto == null ? null : nomineePhoto,
     "nomineePhone": nomineePhone == null ? null : nomineePhone,
   };
+
+  @override
+  String toString() {
+    return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, lastName: $lastName, email: $email, niDnumber: $niDnumber, userPhoto: $userPhoto, niDfront: $niDfront, niDback: $niDback, dateOfBirth: $dateOfBirth, password: $password, perPhoneOne: $perPhoneOne, presentAddHouseNo: $presentAddHouseNo, presentAddRoadNo: $presentAddRoadNo, presentLaneNumber: $presentLaneNumber, presentAddPoliceStn: $presentAddPoliceStn, presentAddVillage: $presentAddVillage, presentAddUpozella: $presentAddUpozella, presentAddPostCode: $presentAddPostCode, presentAddDistrict: $presentAddDistrict, permanantAddHouseNo: $permanantAddHouseNo, permanantAddHouseName: $permanantAddHouseName, permanantLaneNumber: $permanantLaneNumber, permanantAddRoadNo: $permanantAddRoadNo, permanantAddPoliceStn: $permanantAddPoliceStn, permanantAddVillage: $permanantAddVillage, permanantAddUpozella: $permanantAddUpozella, permanantAddPostCode: $permanantAddPostCode, permanantAddDistrict: $permanantAddDistrict, nomineeAddHouseName: $nomineeAddHouseName, nomineeLaneNumber: $nomineeLaneNumber, nomineeAddRoadNo: $nomineeAddRoadNo, nomineeAddPoliceStn: $nomineeAddPoliceStn, nomineeAddVillage: $nomineeAddVillage, nomineeAddUpozella: $nomineeAddUpozella, nomineeAddPostCode: $nomineeAddPostCode, nomineeAddDistrict: $nomineeAddDistrict, nomineeRelationship: $nomineeRelationship, nomineePercentage: $nomineePercentage, nomineeName: $nomineeName, nomineePhoto: $nomineePhoto, nomineePhone: $nomineePhone}';
+  }
 }

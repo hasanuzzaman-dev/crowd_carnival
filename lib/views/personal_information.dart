@@ -4,6 +4,9 @@ import 'package:crowd_carnival/models/person_data_model.dart';
 import 'package:crowd_carnival/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:async/async.dart';
 
 import '../constants.dart';
 
@@ -22,6 +25,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
+  var userPhotoPath, userNidFrontPath, userNidBackPath,nomineeImgPath;
 
   //List<File> _imageFile = [];
   File? imageFile, imageFile2, nidImageBack, nomineePhoto;
@@ -34,11 +38,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
 
     setState(() {
       imageFile = File(pickedFile!.path);
-      //imageFile.add(File((pickedFile!.path)));
-      print('Path: ${pickedFile.path.toString()}');
-      /*if(pickedFile.path == null){
-        retriveLostData()
-      }*/
+      print('Path: $imageFile');
+
     });
   }
 
@@ -69,6 +70,62 @@ class _PersonalInformationState extends State<PersonalInformation> {
     });
   }
 
+  Future submitData(PersonDataModel person) async{
+
+    print('submitData personDataModel: ${person.toString()}');
+    /*var response = await http.post(
+      Uri.https('crowdcarnivalbd.herokuapp.com', '/signup'),
+      body: {
+        "refereeId": person.refereeId,
+        "firstName": person.firstName,
+        "email": person.email,
+        "perPhoneOne": person.perPhoneOne,
+        "dateOfBirth": person.dateOfBirth,
+        "userPhoto": person.userPhoto,
+        "NIDfront": person.niDfront,
+        "NIDback": person.niDback,
+        "nomineePhoto": person.nomineePhoto
+
+      }
+    );*/
+
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+    var request = http.MultipartRequest('POST', Uri.parse('https://crowdcarnivalbd.herokuapp.com/signup'));
+    request.fields.addAll({
+      'refereeId': person.refereeId,
+      'firstName': person.firstName,
+      'lastName': 'Uddin',
+      'email': person.email,
+      'dateOfBirth': person.dateOfBirth,
+      'perPhoneOne': person.perPhoneOne,
+    });
+
+    request.files.add(await http.MultipartFile.fromPath('userPhoto', person.userPhoto));
+    request.files.add(await http.MultipartFile.fromPath('NIDfront', person.niDfront));
+    request.files.add(await http.MultipartFile.fromPath('NIDback', person.niDback));
+    request.files.add(await http.MultipartFile.fromPath('nomineePhoto', person.nomineePhoto));
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 201) {
+      print('response: ${await response.stream.bytesToString()}');
+    }
+    else {
+      print('status code: ${response.statusCode}');
+    }
+
+/*    if (response.statusCode == 201) {
+      String responseString = response.body;
+      return responseString;
+    } else {
+      print(response.statusCode);
+    }*/
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +154,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'id',
                   labelText: 'Referee ID',
                 ),
+                controller: refController,
               ),
               SizedBox(
                 height: 8,
@@ -107,6 +165,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'Jhon Doe',
                   labelText: 'Name',
                 ),
+                controller: nameController,
               ),
               SizedBox(
                 height: 8,
@@ -117,6 +176,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   hintText: 'crowdcarval@gmail.com',
                   labelText: 'Email',
                 ),
+                controller: emailController,
               ),
               SizedBox(
                 height: 8,
@@ -127,6 +187,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   labelText: 'Phone',
                   hintText: '+8801XXXXXXXXX',
                 ),
+                controller: phoneController,
               ),
               SizedBox(
                 height: 8,
@@ -137,6 +198,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   hintText: '09/06/2021',
                   labelText: 'Date of Birth',
                 ),
+                controller: dateOfBirthController,
               ),
               SizedBox(
                 height: 24.0,
@@ -299,7 +361,22 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 width: double.infinity,
                 height: getProportionateScreenHeight(50),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async{
+                    var person = PersonDataModel();
+                    person.refereeId = refController.text;
+                    person.firstName = nameController.text;
+                    person.email = emailController.text;
+                    person.perPhoneOne = phoneController.text;
+                    person.dateOfBirth = dateOfBirthController.text;
+                    person.niDfront = imageFile2;
+                    person.niDback = nidImageBack;
+                    person.nomineePhoto = nomineePhoto;
+
+                    print('personDataModel: ${person.toString()}');
+
+                    var personDataModel = await submitData(person);
+                    print('personDataModel: $personDataModel');
+                  },
                   child: Text(
                     'Submit',
                   ),
