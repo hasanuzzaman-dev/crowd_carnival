@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:crowd_carnival/models/person_data_model.dart';
 import 'package:crowd_carnival/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
-import 'package:async/async.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../constants.dart';
 
@@ -34,17 +32,26 @@ class _PersonalInformationState extends State<PersonalInformation> {
   //final picker2 = ImagePicker();
 
   chooseUserImage(ImageSource imageSource) async {
-    final pickedFile = await picker.getImage(source: imageSource);
+    final pickedFile = await picker.getImage(
+      source: imageSource,
+      imageQuality: 50,
+      maxHeight: 500.0,
+      maxWidth: 500.0,
+    );
 
     setState(() {
       imageFile = File(pickedFile!.path);
       print('Path: $imageFile');
-
     });
   }
 
   chooseUserNidFrontImage(ImageSource image) async {
-    final pickedUserNidFrontImgFile = await picker.getImage(source: image);
+    final pickedUserNidFrontImgFile = await picker.getImage(
+      source: image,
+      imageQuality: 50,
+      maxHeight: 500.0,
+      maxWidth: 500.0,
+    );
 
     setState(() {
       imageFile2 = File(pickedUserNidFrontImgFile!.path);
@@ -53,7 +60,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
   }
 
   chooseUserNidBackImage(ImageSource image) async {
-    final pickedNidImageBack = await picker.getImage(source: image);
+    final pickedNidImageBack = await picker.getImage(
+      source: image,
+      imageQuality: 50,
+      maxHeight: 500.0,
+      maxWidth: 500.0,
+    );
 
     setState(() {
       nidImageBack = File(pickedNidImageBack!.path);
@@ -62,7 +74,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
   }
 
   chooseUserNomineeImage(ImageSource image) async {
-    final nomineeImgFile = await picker.getImage(source: image);
+    final nomineeImgFile = await picker.getImage(
+      source: image,
+      imageQuality: 50,
+      maxHeight: 500.0,
+      maxWidth: 500.0,
+    );
 
     setState(() {
       nomineePhoto = File(nomineeImgFile!.path);
@@ -89,10 +106,9 @@ class _PersonalInformationState extends State<PersonalInformation> {
       }
     );*/
 
-    var headers = {
-      'Content-Type': 'application/json'
-    };
-    var request = http.MultipartRequest('POST', Uri.parse('https://crowdcarnivalbd.herokuapp.com/signup'));
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://crowdcarnivalbd.herokuapp.com/signup'));
     request.fields.addAll({
       'refereeId': person.refereeId,
       'firstName': person.firstName,
@@ -102,19 +118,23 @@ class _PersonalInformationState extends State<PersonalInformation> {
       'perPhoneOne': person.perPhoneOne,
     });
 
-    request.files.add(await http.MultipartFile.fromPath('userPhoto', person.userPhoto));
-    request.files.add(await http.MultipartFile.fromPath('NIDfront', person.niDfront));
-    request.files.add(await http.MultipartFile.fromPath('NIDback', person.niDback));
-    request.files.add(await http.MultipartFile.fromPath('nomineePhoto', person.nomineePhoto));
+    request.files.add(await http.MultipartFile.fromPath('userPhoto',
+        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+    request.files.add(await http.MultipartFile.fromPath('NIDfront',
+        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+    request.files.add(await http.MultipartFile.fromPath('NIDback',
+        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+    request.files.add(await http.MultipartFile.fromPath('nomineePhoto',
+        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 201) {
       print('response: ${await response.stream.bytesToString()}');
-    }
-    else {
+    } else {
       print('status code: ${response.statusCode}');
+      print(response.reasonPhrase);
     }
 
 /*    if (response.statusCode == 201) {
@@ -368,6 +388,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     person.email = emailController.text;
                     person.perPhoneOne = phoneController.text;
                     person.dateOfBirth = dateOfBirthController.text;
+                    person.userPhoto = imageFile;
                     person.niDfront = imageFile2;
                     person.niDback = nidImageBack;
                     person.nomineePhoto = nomineePhoto;
@@ -375,7 +396,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     print('personDataModel: ${person.toString()}');
 
                     var personDataModel = await submitData(person);
-                    print('personDataModel: $personDataModel');
+                    //print('personDataModel: $personDataModel');
                   },
                   child: Text(
                     'Submit',

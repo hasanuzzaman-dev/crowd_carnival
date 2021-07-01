@@ -1,3 +1,87 @@
+
+
+
+// To parse this JSON data, do
+//
+//     final personModeldata = personModeldataFromJson(jsonString);
+
+// To parse this JSON data, do
+//
+//     final personModelData = personModelDataFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final personDataModel = personDataModelFromJson(jsonString);
+
+import 'dart:convert';
+
+PersonDataModel personDataModelFromJson(dynamic str) => PersonDataModel.fromJson(json.decode(str));
+
+String personDataModelToJson(PersonDataModel data) => json.encode(data.toJson());
+
+class PersonDataModel {
+  PersonDataModel({
+    this.refereeId,
+    this.firstName,
+    this.email,
+    this.perPhoneOne,
+    this.dateOfBirth,
+    this.userPhoto,
+    this.niDfront,
+    this.niDback,
+    this.nomineePhoto,
+  });
+
+  var refereeId;
+  var firstName;
+  var email;
+  var perPhoneOne;
+  var dateOfBirth;
+  var userPhoto;
+  var niDfront;
+  var niDback;
+  var nomineePhoto;
+
+  factory PersonDataModel.fromJson(Map<dynamic, dynamic> json) => PersonDataModel(
+    refereeId: json["refereeId"],
+    firstName: json["firstName"],
+    email: json["email"],
+    perPhoneOne: json["perPhoneOne"],
+    dateOfBirth: json["dateOfBirth"],
+    userPhoto: json["userPhoto"],
+    niDfront: json["NIDfront"],
+    niDback: json["NIDback"],
+    nomineePhoto: json["nomineePhoto"],
+  );
+
+  Map<dynamic, dynamic> toJson() => {
+    "refereeId": refereeId,
+    "firstName": firstName,
+    "email": email,
+    "perPhoneOne": perPhoneOne,
+    "dateOfBirth": dateOfBirth,
+    "userPhoto": userPhoto,
+    "NIDfront": niDfront,
+    "NIDback": niDback,
+    "nomineePhoto": nomineePhoto,
+  };
+
+  @override
+  String toString() {
+    return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, email: $email, perPhoneOne: $perPhoneOne, dateOfBirth: $dateOfBirth, userPhoto: $userPhoto, niDfront: $niDfront, niDback: $niDback, nomineePhoto: $nomineePhoto}';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
 // To parse this JSON data, do
 //
 //     final personDataModel = personDataModelFromJson(jsonString);
@@ -188,3 +272,4 @@ class PersonDataModel {
     return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, lastName: $lastName, email: $email, niDnumber: $niDnumber, userPhoto: $userPhoto, niDfront: $niDfront, niDback: $niDback, dateOfBirth: $dateOfBirth, password: $password, perPhoneOne: $perPhoneOne, presentAddHouseNo: $presentAddHouseNo, presentAddRoadNo: $presentAddRoadNo, presentLaneNumber: $presentLaneNumber, presentAddPoliceStn: $presentAddPoliceStn, presentAddVillage: $presentAddVillage, presentAddUpozella: $presentAddUpozella, presentAddPostCode: $presentAddPostCode, presentAddDistrict: $presentAddDistrict, permanantAddHouseNo: $permanantAddHouseNo, permanantAddHouseName: $permanantAddHouseName, permanantLaneNumber: $permanantLaneNumber, permanantAddRoadNo: $permanantAddRoadNo, permanantAddPoliceStn: $permanantAddPoliceStn, permanantAddVillage: $permanantAddVillage, permanantAddUpozella: $permanantAddUpozella, permanantAddPostCode: $permanantAddPostCode, permanantAddDistrict: $permanantAddDistrict, nomineeAddHouseName: $nomineeAddHouseName, nomineeLaneNumber: $nomineeLaneNumber, nomineeAddRoadNo: $nomineeAddRoadNo, nomineeAddPoliceStn: $nomineeAddPoliceStn, nomineeAddVillage: $nomineeAddVillage, nomineeAddUpozella: $nomineeAddUpozella, nomineeAddPostCode: $nomineeAddPostCode, nomineeAddDistrict: $nomineeAddDistrict, nomineeRelationship: $nomineeRelationship, nomineePercentage: $nomineePercentage, nomineeName: $nomineeName, nomineePhoto: $nomineePhoto, nomineePhone: $nomineePhone}';
   }
 }
+*/
