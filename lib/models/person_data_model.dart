@@ -22,52 +22,52 @@ class PersonDataModel {
   PersonDataModel({
     this.refereeId,
     this.firstName,
-    this.email,
+    this.password,
     this.perPhoneOne,
     this.dateOfBirth,
-    this.userPhoto,
-    this.niDfront,
-    this.niDback,
-    this.nomineePhoto,
+    this.fileOne,
+    this.fileTwo,
+    this.fileThree,
+    this.fileFour,
   });
 
   var refereeId;
   var firstName;
-  var email;
+  var password;
   var perPhoneOne;
   var dateOfBirth;
-  var userPhoto;
-  var niDfront;
-  var niDback;
-  var nomineePhoto;
+  var fileOne;
+  var fileTwo;
+  var fileThree;
+  var fileFour;
 
   factory PersonDataModel.fromJson(Map<dynamic, dynamic> json) => PersonDataModel(
     refereeId: json["refereeId"],
     firstName: json["firstName"],
-    email: json["email"],
+    password: json["password"],
     perPhoneOne: json["perPhoneOne"],
     dateOfBirth: json["dateOfBirth"],
-    userPhoto: json["userPhoto"],
-    niDfront: json["NIDfront"],
-    niDback: json["NIDback"],
-    nomineePhoto: json["nomineePhoto"],
+    fileOne: json["fileOne"],
+    fileTwo: json["fileTwo"],
+    fileThree: json["NIDback"],
+    fileFour: json["fileFour"],
   );
 
   Map<dynamic, dynamic> toJson() => {
     "refereeId": refereeId,
     "firstName": firstName,
-    "email": email,
+    "password": password,
     "perPhoneOne": perPhoneOne,
     "dateOfBirth": dateOfBirth,
-    "userPhoto": userPhoto,
-    "NIDfront": niDfront,
-    "NIDback": niDback,
-    "nomineePhoto": nomineePhoto,
+    "fileOne": fileOne,
+    "fileTwo": fileTwo,
+    "NIDback": fileThree,
+    "fileFour": fileFour,
   };
 
   @override
   String toString() {
-    return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, email: $email, perPhoneOne: $perPhoneOne, dateOfBirth: $dateOfBirth, userPhoto: $userPhoto, niDfront: $niDfront, niDback: $niDback, nomineePhoto: $nomineePhoto}';
+    return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, password: $password, perPhoneOne: $perPhoneOne, dateOfBirth: $dateOfBirth, fileOne: $fileOne, fileTwo: $fileTwo, fileThree: $fileThree, fileFour: $fileFour}';
   }
 }
 
@@ -97,11 +97,11 @@ class PersonDataModel {
     this.refereeId,
     this.firstName,
     this.lastName,
-    this.email,
+    this.password,
     this.niDnumber,
-    this.userPhoto,
-    this.niDfront,
-    this.niDback,
+    this.fileOne,
+    this.fileTwo,
+    this.fileThree,
     this.dateOfBirth,
     this.password,
     this.perPhoneOne,
@@ -133,18 +133,18 @@ class PersonDataModel {
     this.nomineeRelationship,
     this.nomineePercentage,
     this.nomineeName,
-    this.nomineePhoto,
+    this.fileFour,
     this.nomineePhone,
   });
 
   var refereeId;
   var firstName;
   var lastName;
-  var email;
+  var password;
   var niDnumber;
-  var userPhoto;
-  var niDfront;
-  var niDback;
+  var fileOne;
+  var fileTwo;
+  var fileThree;
   var dateOfBirth;
   var password;
   var perPhoneOne;
@@ -176,18 +176,18 @@ class PersonDataModel {
   var nomineeRelationship;
   var nomineePercentage;
   var nomineeName;
-  var nomineePhoto;
+  var fileFour;
   var nomineePhone;
 
   factory PersonDataModel.fromJson(Map<String, dynamic> json) => PersonDataModel(
     refereeId: json["refereeId"] == null ? null : json["refereeId"],
     firstName: json["firstName"] == null ? null : json["firstName"],
     lastName: json["lastName"] == null ? null : json["lastName"],
-    email: json["email"] == null ? null : json["email"],
+    password: json["password"] == null ? null : json["password"],
     niDnumber: json["NIDnumber"] == null ? null : json["NIDnumber"],
-    userPhoto: json["userPhoto"] == null ? null : json["userPhoto"],
-    niDfront: json["NIDfront"] == null ? null : json["NIDfront"],
-    niDback: json["NIDback"] == null ? null : json["NIDback"],
+    fileOne: json["fileOne"] == null ? null : json["fileOne"],
+    fileTwo: json["fileTwo"] == null ? null : json["fileTwo"],
+    fileThree: json["NIDback"] == null ? null : json["NIDback"],
     dateOfBirth: json["dateOfBirth"] == null ? null : json["dateOfBirth"],
     password: json["password"] == null ? null : json["password"],
     perPhoneOne: json["perPhoneOne"] == null ? null : json["perPhoneOne"],
@@ -219,7 +219,7 @@ class PersonDataModel {
     nomineeRelationship: json["nomineeRelationship"] == null ? null : json["nomineeRelationship"],
     nomineePercentage: json["nomineePercentage"] == null ? null : json["nomineePercentage"],
     nomineeName: json["nomineeName"] == null ? null : json["nomineeName"],
-    nomineePhoto: json["nomineePhoto"] == null ? null : json["nomineePhoto"],
+    fileFour: json["fileFour"] == null ? null : json["fileFour"],
     nomineePhone: json["nomineePhone"] == null ? null : json["nomineePhone"],
   );
 
@@ -227,11 +227,11 @@ class PersonDataModel {
     "refereeId": refereeId == null ? null : refereeId,
     "firstName": firstName == null ? null : firstName,
     "lastName": lastName == null ? null : lastName,
-    "email": email == null ? null : email,
+    "password": password == null ? null : password,
     "NIDnumber": niDnumber == null ? null : niDnumber,
-    "userPhoto": userPhoto == null ? null : userPhoto,
-    "NIDfront": niDfront == null ? null : niDfront,
-    "NIDback": niDback == null ? null : niDback,
+    "fileOne": fileOne == null ? null : fileOne,
+    "fileTwo": fileTwo == null ? null : fileTwo,
+    "NIDback": fileThree == null ? null : fileThree,
     "dateOfBirth": dateOfBirth == null ? null : dateOfBirth,
     "password": password == null ? null : password,
     "perPhoneOne": perPhoneOne == null ? null : perPhoneOne,
@@ -263,13 +263,13 @@ class PersonDataModel {
     "nomineeRelationship": nomineeRelationship == null ? null : nomineeRelationship,
     "nomineePercentage": nomineePercentage == null ? null : nomineePercentage,
     "nomineeName": nomineeName == null ? null : nomineeName,
-    "nomineePhoto": nomineePhoto == null ? null : nomineePhoto,
+    "fileFour": fileFour == null ? null : fileFour,
     "nomineePhone": nomineePhone == null ? null : nomineePhone,
   };
 
   @override
   String toString() {
-    return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, lastName: $lastName, email: $email, niDnumber: $niDnumber, userPhoto: $userPhoto, niDfront: $niDfront, niDback: $niDback, dateOfBirth: $dateOfBirth, password: $password, perPhoneOne: $perPhoneOne, presentAddHouseNo: $presentAddHouseNo, presentAddRoadNo: $presentAddRoadNo, presentLaneNumber: $presentLaneNumber, presentAddPoliceStn: $presentAddPoliceStn, presentAddVillage: $presentAddVillage, presentAddUpozella: $presentAddUpozella, presentAddPostCode: $presentAddPostCode, presentAddDistrict: $presentAddDistrict, permanantAddHouseNo: $permanantAddHouseNo, permanantAddHouseName: $permanantAddHouseName, permanantLaneNumber: $permanantLaneNumber, permanantAddRoadNo: $permanantAddRoadNo, permanantAddPoliceStn: $permanantAddPoliceStn, permanantAddVillage: $permanantAddVillage, permanantAddUpozella: $permanantAddUpozella, permanantAddPostCode: $permanantAddPostCode, permanantAddDistrict: $permanantAddDistrict, nomineeAddHouseName: $nomineeAddHouseName, nomineeLaneNumber: $nomineeLaneNumber, nomineeAddRoadNo: $nomineeAddRoadNo, nomineeAddPoliceStn: $nomineeAddPoliceStn, nomineeAddVillage: $nomineeAddVillage, nomineeAddUpozella: $nomineeAddUpozella, nomineeAddPostCode: $nomineeAddPostCode, nomineeAddDistrict: $nomineeAddDistrict, nomineeRelationship: $nomineeRelationship, nomineePercentage: $nomineePercentage, nomineeName: $nomineeName, nomineePhoto: $nomineePhoto, nomineePhone: $nomineePhone}';
+    return 'PersonDataModel{refereeId: $refereeId, firstName: $firstName, lastName: $lastName, password: $password, niDnumber: $niDnumber, fileOne: $fileOne, fileTwo: $fileTwo, fileThree: $fileThree, dateOfBirth: $dateOfBirth, password: $password, perPhoneOne: $perPhoneOne, presentAddHouseNo: $presentAddHouseNo, presentAddRoadNo: $presentAddRoadNo, presentLaneNumber: $presentLaneNumber, presentAddPoliceStn: $presentAddPoliceStn, presentAddVillage: $presentAddVillage, presentAddUpozella: $presentAddUpozella, presentAddPostCode: $presentAddPostCode, presentAddDistrict: $presentAddDistrict, permanantAddHouseNo: $permanantAddHouseNo, permanantAddHouseName: $permanantAddHouseName, permanantLaneNumber: $permanantLaneNumber, permanantAddRoadNo: $permanantAddRoadNo, permanantAddPoliceStn: $permanantAddPoliceStn, permanantAddVillage: $permanantAddVillage, permanantAddUpozella: $permanantAddUpozella, permanantAddPostCode: $permanantAddPostCode, permanantAddDistrict: $permanantAddDistrict, nomineeAddHouseName: $nomineeAddHouseName, nomineeLaneNumber: $nomineeLaneNumber, nomineeAddRoadNo: $nomineeAddRoadNo, nomineeAddPoliceStn: $nomineeAddPoliceStn, nomineeAddVillage: $nomineeAddVillage, nomineeAddUpozella: $nomineeAddUpozella, nomineeAddPostCode: $nomineeAddPostCode, nomineeAddDistrict: $nomineeAddDistrict, nomineeRelationship: $nomineeRelationship, nomineePercentage: $nomineePercentage, nomineeName: $nomineeName, fileFour: $fileFour, nomineePhone: $nomineePhone}';
   }
 }
 */

@@ -23,15 +23,17 @@ class _PersonalInformationState extends State<PersonalInformation> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
-  var userPhotoPath, userNidFrontPath, userNidBackPath,nomineeImgPath;
+  var userPhotoPath, userNidFrontPath, userNidBackPath, nomineeImgPath;
 
   //List<File> _imageFile = [];
   File? imageFile, imageFile2, nidImageBack, nomineePhoto;
   final picker = ImagePicker();
+  var imageFileUrl1, imageFileUrl2, imageFileUrl3, imageFileUrl4;
+  var imageFileUrl;
 
   //final picker2 = ImagePicker();
 
-  chooseUserImage(ImageSource imageSource) async {
+/*  chooseUserImage(ImageSource imageSource) async {
     final pickedFile = await picker.getImage(
       source: imageSource,
       imageQuality: 50,
@@ -43,53 +45,52 @@ class _PersonalInformationState extends State<PersonalInformation> {
       imageFile = File(pickedFile!.path);
       print('Path: $imageFile');
     });
+  }*/
+
+  chooseUserImage(ImageSource imageSource) async {
+    final pickedFile = await picker.getImage(source: imageSource);
+
+    setState(() {
+      imageFile = File(pickedFile!.path);
+      imageFileUrl1 = imageFile!.absolute.path;
+      print('Path: $imageFile');
+    });
   }
 
   chooseUserNidFrontImage(ImageSource image) async {
-    final pickedUserNidFrontImgFile = await picker.getImage(
-      source: image,
-      imageQuality: 50,
-      maxHeight: 500.0,
-      maxWidth: 500.0,
-    );
+    final pickedUserNidFrontImgFile = await picker.getImage(source: image);
 
     setState(() {
       imageFile2 = File(pickedUserNidFrontImgFile!.path);
+      imageFileUrl2 = imageFile2!.absolute.path;
       print('Path: ${pickedUserNidFrontImgFile.path.toString()}');
     });
   }
 
   chooseUserNidBackImage(ImageSource image) async {
-    final pickedNidImageBack = await picker.getImage(
-      source: image,
-      imageQuality: 50,
-      maxHeight: 500.0,
-      maxWidth: 500.0,
-    );
+    final pickedNidImageBack = await picker.getImage(source: image);
 
     setState(() {
       nidImageBack = File(pickedNidImageBack!.path);
+      imageFileUrl3 = nidImageBack!.absolute.path;
       print('Path: ${pickedNidImageBack.path.toString()}');
     });
   }
 
+  // Nominee Image
   chooseUserNomineeImage(ImageSource image) async {
-    final nomineeImgFile = await picker.getImage(
-      source: image,
-      imageQuality: 50,
-      maxHeight: 500.0,
-      maxWidth: 500.0,
-    );
+    final nomineeImgFile = await picker.getImage(source: image);
 
     setState(() {
       nomineePhoto = File(nomineeImgFile!.path);
+      imageFileUrl4 = nomineePhoto!.absolute.path;
       print('Path: ${nomineeImgFile.path.toString()}');
     });
   }
 
   Future submitData(PersonDataModel person) async{
-
     print('submitData personDataModel: ${person.toString()}');
+    //print('userFilepath: $imageFileUrl');
     /*var response = await http.post(
       Uri.https('crowdcarnivalbd.herokuapp.com', '/signup'),
       body: {
@@ -112,20 +113,41 @@ class _PersonalInformationState extends State<PersonalInformation> {
     request.fields.addAll({
       'refereeId': person.refereeId,
       'firstName': person.firstName,
-      'lastName': 'Uddin',
-      'email': person.email,
+      'password': person.password,
       'dateOfBirth': person.dateOfBirth,
       'perPhoneOne': person.perPhoneOne,
     });
 
-    request.files.add(await http.MultipartFile.fromPath('userPhoto',
-        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+    /*request.files.add(await http.MultipartFile.fromPath('userPhoto', person.userPhoto));
     request.files.add(await http.MultipartFile.fromPath('NIDfront',
-        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+        person.niDfront));
     request.files.add(await http.MultipartFile.fromPath('NIDback',
-        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+        person.niDback));
     request.files.add(await http.MultipartFile.fromPath('nomineePhoto',
-        '/data/user/0/com.example.crowd_carnival/cache/image_picker6446355633851600995.jpg'));
+        person.nomineePhoto));*/
+
+    /* // file path
+    request.files.add(await http.MultipartFile.fromPath('fileOne', '/data/user/0/com.example.crowd_carnival/cache/image_picker848125642823843036.jpg'));
+    request.files.add(await http.MultipartFile.fromPath('fileTwo', '/data/user/0/com.example.crowd_carnival/cache/image_picker848125642823843036.jpg'));
+    request.files.add(await http.MultipartFile.fromPath('fileThree', '/data/user/0/com.example.crowd_carnival/cache/image_picker848125642823843036.jpg'));
+    request.files.add(await http.MultipartFile.fromPath('fileFour', '/data/user/0/com.example.crowd_carnival/cache/image_picker848125642823843036.jpg'));
+    */
+
+    request.files.add(await http.MultipartFile.fromPath('fileOne', '$imageFileUrl1'));
+    request.files.add(await http.MultipartFile.fromPath('fileTwo', '$imageFileUrl2'));
+    request.files.add(await http.MultipartFile.fromPath('fileThree', '$imageFileUrl3'));
+    request.files.add(await http.MultipartFile.fromPath('fileFour', '$imageFileUrl4'));
+
+    /*   request.files.add(await http.MultipartFile.fromPath('fileOne', '$imageFileUrl'));
+    request.files.add(await http.MultipartFile.fromPath('fileTwo', '$imageFileUrl'));
+    request.files.add(await http.MultipartFile.fromPath('fileThree', '$imageFileUrl'));
+    request.files.add(await http.MultipartFile.fromPath('fileFour', '$imageFileUrl'));*/
+
+    /*   request.files.add(await http.MultipartFile.fromPath('fileOne', imageFile.toString()));
+    request.files.add(await http.MultipartFile.fromPath('fileTwo', imageFile2.toString()));
+    request.files.add(await http.MultipartFile.fromPath('fileThree', nidImageBack.toString()));
+    request.files.add(await http.MultipartFile.fromPath('fileFour', nomineePhoto.toString()));*/
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -135,6 +157,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
     } else {
       print('status code: ${response.statusCode}');
       print(response.reasonPhrase);
+      print(response.toString());
     }
 
 /*    if (response.statusCode == 201) {
@@ -160,69 +183,19 @@ class _PersonalInformationState extends State<PersonalInformation> {
           ),
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
+
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.only(left: 16.0,right: 16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration(
-                  hintText: 'id',
-                  labelText: 'Referee ID',
-                ),
-                controller: refController,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              TextField(
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration(
-                  hintText: 'Jhon Doe',
-                  labelText: 'Name',
-                ),
-                controller: nameController,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              TextField(
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration(
-                  hintText: 'crowdcarval@gmail.com',
-                  labelText: 'Email',
-                ),
-                controller: emailController,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              TextField(
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration(
-                  labelText: 'Phone',
-                  hintText: '+8801XXXXXXXXX',
-                ),
-                controller: phoneController,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              TextField(
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  hintText: '09/06/2021',
-                  labelText: 'Date of Birth',
-                ),
-                controller: dateOfBirthController,
-              ),
-              SizedBox(
-                height: 24.0,
-              ),
+              buildTextField('Referee ID', 'CF0803580', phoneController),
+              buildTextField('Name', 'Jhon Doe', nameController),
+              buildTextField('Email', 'crowdcarval@gmail.com', emailController),
+              buildTextField('Phone', '01XXXXXXXXX', phoneController),
+              buildTextField('Date of Birth', '01/01/1999', dateOfBirthController),
               Text('User Photo'),
               Container(
                 child: Column(
@@ -245,8 +218,21 @@ class _PersonalInformationState extends State<PersonalInformation> {
                             ),
                           ),
                           OutlinedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               chooseUserImage(ImageSource.gallery);
+
+                              /*FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+                              if (result != null) {
+                                File file = File(result.files.single.path!);
+                                PlatformFile pFile = result.files.first;
+                                imageFileUrl = file.absolute.path;
+
+                                print('Filepath ${file.absolute.path}');
+                                print('Filepath ${pFile.path}');
+                              } else {
+                                // User canceled the picker
+                              }*/
                             },
                             child: Text(
                               'Gallery',
@@ -383,20 +369,42 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 child: ElevatedButton(
                   onPressed: () async{
                     var person = PersonDataModel();
-                    person.refereeId = refController.text;
+                    /*person.refereeId = refController.text;
                     person.firstName = nameController.text;
                     person.email = emailController.text;
                     person.perPhoneOne = phoneController.text;
                     person.dateOfBirth = dateOfBirthController.text;
-                    person.userPhoto = imageFile;
+                     person.userPhoto = imageFile;
                     person.niDfront = imageFile2;
                     person.niDback = nidImageBack;
                     person.nomineePhoto = nomineePhoto;
+                    */
+
+                    person.refereeId = 'cf786786214530';
+                    person.firstName = 'Imam';
+                    person.password = '123456789';
+                    person.perPhoneOne = '01713288619';
+                    person.dateOfBirth = '01/05/1996';
+
+                    /*person.fileOne = imageFileUrl;
+                    person.fileTwo = imageFileUrl;
+                    person.fileThree = imageFileUrl;
+                    person.fileFour = imageFileUrl;*/
+
+                    person.fileOne = imageFileUrl1;
+                    person.fileTwo = imageFileUrl2;
+                    person.fileThree = imageFileUrl3;
+                    person.fileFour = imageFileUrl4;
+
+                    /*person.fileOne = imageFile;
+                    person.fileTwo = imageFile2;
+                    person.fileThree = nidImageBack;
+                    person.fileFour = nomineePhoto;*/
 
                     print('personDataModel: ${person.toString()}');
 
                     var personDataModel = await submitData(person);
-                    //print('personDataModel: $personDataModel');
+                    print('personDataModel: $personDataModel');
                   },
                   child: Text(
                     'Submit',
@@ -428,6 +436,19 @@ class _PersonalInformationState extends State<PersonalInformation> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Container buildTextField(String labelText, String hintText, var textController) {
+    return Container(
+      child: TextField(
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          labelText: labelText,
+          hintText: hintText,
+        ),
+        controller: textController,
       ),
     );
   }
