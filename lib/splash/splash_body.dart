@@ -83,9 +83,10 @@ class _SplashBodyState extends State<SplashBody> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                       /* Navigator.push(context, MaterialPageRoute(builder: (context){
                           return PersonalInformation();
-                        }));
+                        }));*/
+                        Navigator.of(context).push(_createRoute(PersonalInformation()));
 
                       },
                       child: Text('Continue'),
@@ -113,4 +114,23 @@ class _SplashBodyState extends State<SplashBody> {
       ),
     );
   }
+
+}
+
+Route _createRoute(dynamic personalInfo) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => personalInfo,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
