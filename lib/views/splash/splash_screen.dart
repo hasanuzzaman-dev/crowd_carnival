@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:crowd_carnival/size_config.dart';
-import 'package:crowd_carnival/splash/splash_body.dart';
+
+
+import 'splash_body.dart';
 
 class SplashScreen extends StatelessWidget {
   static String routeName = '/splash';

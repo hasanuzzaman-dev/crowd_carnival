@@ -1,5 +1,6 @@
 import 'package:crowd_carnival/routes/routs.dart';
-import 'package:crowd_carnival/splash/splash_screen.dart';
+import 'package:crowd_carnival/views/splash/splash_screen.dart';
+
 import 'package:flutter/material.dart';
 
 import 'constants.dart';

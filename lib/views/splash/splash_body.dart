@@ -1,10 +1,10 @@
-import 'package:crowd_carnival/splash/splash_content.dart';
-import 'package:crowd_carnival/views/personal_information.dart';
-import 'package:crowd_carnival/views/welcome_screen.dart';
+
+import 'package:crowd_carnival/views/splash/splash_content.dart';
+import 'package:crowd_carnival/views/sign_in/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../size_config.dart';
+import '../../constants.dart';
+import '../../size_config.dart';
 
 class SplashBody extends StatefulWidget {
   const SplashBody({Key? key}) : super(key: key);
@@ -41,16 +41,16 @@ class _SplashBodyState extends State<SplashBody> {
             flex: 3,
             child: PageView.builder(
               onPageChanged: (value) {
-                setState(() {
-                  currentPage = value;
-                });
-              },
-              itemCount: splashData.length,
-              itemBuilder: (context, index) => SplashContent(
-                text: splashData[index]['text'],
-                image: splashData[index]['image'],
+                  setState(() {
+                    currentPage = value;
+                  });
+                },
+                itemCount: splashData.length,
+                itemBuilder: (context, index) => SplashContent(
+                  text: splashData[index]['text'],
+                  image: splashData[index]['image'],
+                ),
               ),
-            ),
           ),
           Expanded(
             flex: 2,
@@ -72,34 +72,34 @@ class _SplashBodyState extends State<SplashBody> {
                     height: getProportionateScreenHeight(56),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          primary: kPrimaryColor,
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: getProportionateScreenWidth(18),
+                          ),
                         ),
-                        primary: kPrimaryColor,
-                        textStyle: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: getProportionateScreenWidth(18),
-                        ),
-                      ),
-                      onPressed: () {
-                       /* Navigator.push(context, MaterialPageRoute(builder: (context){
+                        onPressed: () {
+                          /* Navigator.push(context, MaterialPageRoute(builder: (context){
                           return PersonalInformation();
                         }));*/
-                        Navigator.of(context).push(_createRoute(PersonalInformation()));
-
-                      },
-                      child: Text('Continue'),
+                          Navigator.of(context).push(_createRoute(WelcomeScreen()));
+                        },
+                        child: Text('Continue'),
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                ],
+                    Spacer(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   AnimatedContainer buildDot({required int index}) {
