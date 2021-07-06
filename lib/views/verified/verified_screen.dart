@@ -1,14 +1,12 @@
-import 'package:crowd_carnival/constants.dart';
-import 'package:crowd_carnival/size_config.dart';
-import 'package:crowd_carnival/views/sign_in/sign_in_form.dart';
 import 'package:crowd_carnival/views/sign_up/personal_information.dart';
-import 'package:crowd_carnival/views/splash/default_button.dart';
-import 'package:crowd_carnival/views/verified/verified_body.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:crowd_carnival/views/verified/verified_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SignInScreen extends StatelessWidget {
+import '../../constants.dart';
+import '../../size_config.dart';
+class VerifiedScreen extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class SignInScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: getProportionateScreenHeight(40)),
-              Text('Welcome to \nCROWD CARNIVAL',
+              Text('Welcome Back to \nCROWD CARNIVAL',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(25),
@@ -27,11 +25,11 @@ class SignInScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center),
               Text(
-                "Sign in with your phone number and password \nor register",
+                "Verified with your phone number and verification key \nor register",
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: getProportionateScreenHeight(20)),
-              SignInForm(),
+              VerifiedForm(),
 
               SizedBox(height: getProportionateScreenHeight(20)),
               RichText(
@@ -60,7 +58,7 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: getProportionateScreenHeight(20)),
-              RichText(
+             /* RichText(
                 textScaleFactor: 1.2,
                 text: TextSpan(
                   style: TextStyle(
@@ -83,7 +81,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
